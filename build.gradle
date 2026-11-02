@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '2.12.0'
+}
+
+repositories { mavenCentral() }
+
+def selenideVersion = '7.6.1'
+def appiumVersion = '9.3.0'
+def junitVersion = '5.11.3'
+def allureVersion = '2.29.1'
+def restAssuredVersion = '6.0.0'
+
+dependencies {
+    testImplementation "com.codeborne:selenide:${selenideVersion}"
+    testImplementation "io.appium:java-client:${appiumVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
+    testImplementation "io.qameta.allure:allure-selenide:${allureVersion}"
+    testImplementation "io.rest-assured:rest-assured:$restAssuredVersion"
+    testImplementation "io.qameta.allure:allure-rest-assured:$allureVersion"
+    testImplementation "io.qameta.allure:allure-selenide:2.29.0"
+    testImplementation 'org.aeonbits.owner:owner:1.0.12'
+    testImplementation 'org.slf4j:slf4j-simple:2.0.16'
+}
+
+allure {
+    version = allureVersion
+    adapter {
+        frameworks { junit5 { adapterVersion = allureVersion } }
+    }
+}
+
+test {
+    useJUnitPlatform()
+    systemProperties System.getProperties()
+    systemProperty 'file.encoding', 'UTF-8'
+    testLogging { events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'; exceptionFormat = 'full' }
+}
+
+java { toolchain { languageVersion = JavaLanguageVersion.of(17) } }
