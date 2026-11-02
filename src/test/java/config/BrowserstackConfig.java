@@ -3,8 +3,10 @@ package config;
 import org.aeonbits.owner.Config;
 import org.aeonbits.owner.Config.Sources;
 
-@Sources({"classpath:BrowserstackConfig.properties"})
-public interface BrowserstackConfig extends Config {
+@Sources({
+        "classpath:BrowserstackConfig.local.properties",
+        "classpath:BrowserstackConfig.properties"
+})public interface BrowserstackConfig extends Config {
     @Key("executionMode") @DefaultValue("local") String executionMode();
     @Key("localUrl") @DefaultValue("http://127.0.0.1:4723") String localUrl();
     @Key("localDeviceName") @DefaultValue("Android Emulator") String localDeviceName();

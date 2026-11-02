@@ -1,6 +1,17 @@
-.gradle/
+HELP.md
 build/
-.idea/
+gradle/
+!**/src/main/**
+!**/src/test/**
+
+### IntelliJ IDEA ###
+.idea
+*.iws
 *.iml
-local.properties
-src/test/resources/apps/*.apk
+*.ipr
+
+### Gradle ###
+.gradle
+
+### Logs ###
+*.log
