@@ -58,4 +58,38 @@ public class WikipediaSearchTests extends TestBase {
                     )).shouldBe(visible));
         });
     }
+
+    @DisplayName("Проверка экранов онбординга")
+    @Test
+    void successfulOnboardingProcessed() {
+        $(AppiumBy.androidUIAutomator(
+                " new UiSelector().text(\"All the world's knowledge\")"
+        )).shouldBe(visible);
+        $(AppiumBy.accessibilityId("Forward")).click();
+
+        $(AppiumBy.androidUIAutomator(
+                "new UiSelector().text(\"Data & Privacy\")"
+        )).shouldBe(visible);
+        $(AppiumBy.accessibilityId("Forward")).click();
+
+        $(AppiumBy.androidUIAutomator(
+                "new UiSelector().text(\"Read in more than 300 languages\")"
+        )).shouldBe(visible);
+        $(AppiumBy.accessibilityId("Forward")).click();
+
+        $(AppiumBy.androidUIAutomator(
+                "new UiSelector().text(\"Follow your curiosity\")"
+        )).shouldBe(visible);
+        $(AppiumBy.accessibilityId("Next")).click();
+
+        $(AppiumBy.androidUIAutomator(
+                "new UiSelector().text(\"What are you interested in?\")"
+        )).shouldBe(visible);
+        $(AppiumBy.accessibilityId("Next")).click();
+
+        $(AppiumBy.androidUIAutomator(
+                "new UiSelector().text(\"What would you like to see first?\")"
+        )).shouldBe(visible);
+        $(AppiumBy.accessibilityId("Next")).click();
+    }
 }
