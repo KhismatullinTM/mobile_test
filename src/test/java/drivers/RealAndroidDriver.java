@@ -16,25 +16,24 @@ public class RealAndroidDriver implements WebDriverProvider {
     public WebDriver createDriver(Capabilities ignored) {
         var config = ConfigProvider.REAL_CONFIG;
 
-        if (config.realDeviceName().isBlank()) {
-            throw new IllegalStateException(
-                    "Set realDeviceName in RealConfig.properties"
-            );
-        }
-
         UiAutomator2Options options = new UiAutomator2Options()
                 .setPlatformName("Android")
                 .setAutomationName("UiAutomator2")
                 .setDeviceName(config.realDeviceName())
-                .setPlatformVersion(config.realPlatformVersion());
+                .setPlatformVersion(config.realPlatformVersion())
+                .setUdid(config.realUdid())
+                .setAppPackage("org.wikipedia.alpha")
+                .setAppActivity("org.wikipedia.main.MainActivity");
 
+        options.setCapability("appium:ignoreHiddenApiPolicyError", true);
         options.setNewCommandTimeout(Duration.ofSeconds(120));
 
         try {
             return new AndroidDriver(new URL(config.realUrl()), options);
         } catch (Exception e) {
             throw new IllegalStateException(
-                    "Could not create session with real Android device. Check device connection and Appium Server.",
+                    "Could not create session with real Android device. "
+                            + "Check device connection and Appium Server.",
                     e
             );
         }

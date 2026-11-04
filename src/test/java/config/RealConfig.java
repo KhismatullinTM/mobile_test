@@ -9,4 +9,5 @@ public interface RealConfig extends Config {
     @Key("realUrl") String realUrl();
     @Key("realDeviceName") String realDeviceName();
     @Key("realPlatformVersion") String realPlatformVersion();
+    @Key("realUdid") String realUdid();
 }
