@@ -11,14 +11,20 @@ import java.io.File;
 import java.net.URL;
 import java.time.Duration;
 
-public class LocalAndroidDriver implements WebDriverProvider {
+public class EmulatorAndroidDriver implements WebDriverProvider {
+
+    private static final String UDID = "emulator-5554";
+
     @Override
     public WebDriver createDriver(Capabilities ignored) {
-        var config = ConfigProvider.CONFIG;
+        var config = ConfigProvider.EMULATION_CONFIG;
+
         File apk = new File(config.localAppPath());
+
         if (!apk.isFile()) {
-            throw new IllegalStateException("APK not found: " + apk.getAbsolutePath()
-                    + ". Download Wikipedia APK and set -DlocalAppPath=<path>.");
+            throw new IllegalStateException(
+                    "APK not found: " + apk.getAbsolutePath()
+            );
         }
 
         UiAutomator2Options options = new UiAutomator2Options()
@@ -26,15 +32,20 @@ public class LocalAndroidDriver implements WebDriverProvider {
                 .setAutomationName("UiAutomator2")
                 .setDeviceName(config.localDeviceName())
                 .setPlatformVersion(config.localPlatformVersion())
+                .setUdid(UDID)
                 .setApp(apk.getAbsolutePath())
                 .setAppPackage("org.wikipedia.alpha")
                 .setAppActivity("org.wikipedia.main.MainActivity");
+
         options.setNewCommandTimeout(Duration.ofSeconds(120));
 
         try {
             return new AndroidDriver(new URL(config.localUrl()), options);
         } catch (Exception e) {
-            throw new IllegalStateException("Could not start local Appium session at " + config.localUrl(), e);
+            throw new IllegalStateException(
+                    "Could not create Android Emulator session. Check Appium Server and emulator connection.",
+                    e
+            );
         }
     }
 }

@@ -58,4 +58,56 @@ public class WikipediaSearchTests extends TestBase {
                     )).shouldBe(visible));
         });
     }
+
+    @DisplayName("Проверка экранов онбординга")
+    @Test
+    void successfulOnboardingProcessed() {
+        step("Проверить отображение первого экрана онбординга", () ->
+                $(AppiumBy.androidUIAutomator(
+                        "new UiSelector().text(\"All the world's knowledge\")"
+                )).shouldBe(visible));
+
+        step("Перейти ко второму экрану", () ->
+                $(AppiumBy.accessibilityId("Forward")).click());
+
+        step("Проверить отображение экрана Data & Privacy", () ->
+                $(AppiumBy.androidUIAutomator(
+                        "new UiSelector().text(\"Data & Privacy\")"
+                )).shouldBe(visible));
+
+        step("Перейти к третьему экрану", () ->
+                $(AppiumBy.accessibilityId("Forward")).click());
+
+        step("Проверить отображение экрана Read in more than 300 languages", () ->
+                $(AppiumBy.androidUIAutomator(
+                        "new UiSelector().text(\"Read in more than 300 languages\")"
+                )).shouldBe(visible));
+
+        step("Перейти к четвёртому экрану", () ->
+                $(AppiumBy.accessibilityId("Forward")).click());
+
+        step("Проверить отображение экрана Follow your curiosity", () ->
+                $(AppiumBy.androidUIAutomator(
+                        "new UiSelector().text(\"Follow your curiosity\")"
+                )).shouldBe(visible));
+
+        step("Перейти к пятому экрану", () ->
+                $(AppiumBy.accessibilityId("Next")).click());
+
+        step("Проверить отображение экрана What are you interested in?", () ->
+                $(AppiumBy.androidUIAutomator(
+                        "new UiSelector().text(\"What are you interested in?\")"
+                )).shouldBe(visible));
+
+        step("Перейти к шестому экрану", () ->
+                $(AppiumBy.accessibilityId("Next")).click());
+
+        step("Проверить отображение экрана What would you like to see first?", () ->
+                $(AppiumBy.androidUIAutomator(
+                        "new UiSelector().text(\"What would you like to see first?\")"
+                )).shouldBe(visible));
+
+        step("Завершить прохождение онбординга", () ->
+                $(AppiumBy.accessibilityId("Next")).click());
+    }
 }
